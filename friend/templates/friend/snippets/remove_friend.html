@@ -13,7 +13,7 @@
 			data: payload,
 			success: function(data) {
 				console.log("SUCCESS", data)
-				if(data['response'] == "Successfully removed that friend."){
+				if(data['response'] == "Amigo eliminado con éxito."){
 					// UI gets updated
 				}
 				else if(data['response'] != null){
@@ -22,7 +22,7 @@
 			},
 			error: function(data) {
 				console.error("ERROR...", data)
-				alert("Something went wrong.")
+				alert("Algo salió mal.")
 			},
 			complete: function(data){
 				uiUpdateFunction()

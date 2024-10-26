@@ -5,15 +5,13 @@
 
 {% block content %}
 
-<!-- <link rel='stylesheet' type='text/css' media='screen' href="{% static 'blog/vc.css' %}"> -->
-
 <style>
     .media {
         align-items: center;
     }
 </style>
 {% if not friends %}
-    <span class="container">You need to be friends wih someone to call</span>
+    <span class="container">Necesitas ser amigo de alguien para llamar.</span>
 {% endif %}
 
 <div class="col-md-8 m-auto">
@@ -66,8 +64,6 @@
 {% block script %}
 <script>
     async function handleVCRedirect(id1,name) {
-        // let room = (parseInt(id1) > parseInt(id2)) ? "vcroom_" + id1 + "_" + {{request.user.id}} : "vcroom_" + {{request.user.id}} + "_" + id1;
-        // room = room.toUpperCase()
         room = id1
 
         let response = await fetch(`get_token/?channel=${room}`)

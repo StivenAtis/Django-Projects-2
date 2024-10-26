@@ -30,17 +30,17 @@
                       <p><a class="mr-2" href="{% url 'user-posts' user %}">{{user.profile.profile_posts.count}}</a></p>
                   </div>
                   <div class="col">
-                    <span class="h6">Friends</span>
+                    <span class="h6">Amigos</span>
                     <p title="Friends">
                         <a href="{% url 'friend:list' user.id %}">{{user.friends.all|length}}</a>
                     </p>
                   </div>
                   <div class="col">
-                      <span class="h6">Followers</span>
+                      <span class="h6">Seguidores</span>
                       <p>{{user.following.count}}</p>
                   </div>
                   <div class="col">
-                      <span class="h6">Following</span>
+                      <span class="h6">Seguidos</span>
                       <p>{{user.profile.following.count}}</p>
                   </div>
               </div>
@@ -50,12 +50,12 @@
     <form id="formUpload" action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Profile Info</legend>
+            <legend class="border-bottom mb-4">Información del perfil</legend>
             {{u_form|crispy}}
             {{p_form|crispy}}
         </fieldset>
         <div class="form-group">
-            <button class="btn btn-outline-info" type="submit">Update</button>
+            <button class="btn btn-outline-info" type="submit">Actualizar</button>
         </div>
     </form>
 </div>
@@ -69,7 +69,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title">Crop the photo</h5>
+            <h5 class="modal-title">Recortar la foto</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button> 
@@ -86,8 +86,8 @@
                     <i class="fas fa-search-minus"></i>
                 </button>
             </div>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary js-crop-and-upload">Crop and upload</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary js-crop-and-upload">Recortar y cargar</button>
         </div>
       </div>
     </div>

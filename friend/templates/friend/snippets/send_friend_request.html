@@ -13,7 +13,7 @@
 			data: payload,
 			success: function(data) {
 				console.log("SUCCESS", data)
-				if(data['response'] == "Friend request sent."){
+				if(data['response'] == "Solicitud de amistad enviada."){
 					// ui is updated
 				}
 				else if(data['response'] != null){
@@ -22,7 +22,7 @@
 			},
 			error: function(data) {
 				console.error("ERROR...", data)
-				alert("Something went wrong.")
+				alert("Algo salió mal.")
 			},
 			complete: function(data){
 				uiUpdateFunction()

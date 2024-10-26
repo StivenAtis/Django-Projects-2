@@ -18,14 +18,14 @@ import random
 from blog.utils import is_ajax
 
 
-""" Home page with all posts """
+""" Página de inicio con todas las publicaciones """
 def first(request):
     context = {
         'posts':Post.objects.all()
     }
     return render(request, 'blog/first.html', context)
 
-""" Posts of following user profiles """
+""" Publicaciones de los perfiles de usuario seguidos """
 @login_required
 def posts_of_following_profiles(request):
 
@@ -54,7 +54,7 @@ def posts_of_following_profiles(request):
     return render(request,'blog/feeds.html',{'profile':profile,'posts':posts_list})
 
 
-""" Post Like """
+""" Publicar Me gusta """
 @login_required
 def LikeView(request):
 
@@ -82,7 +82,7 @@ def LikeView(request):
         return JsonResponse({'form':html})
 
 
-""" Post save """
+""" PGuardar publicación """
 @login_required
 def SaveView(request):
 
@@ -106,7 +106,7 @@ def SaveView(request):
         return JsonResponse({'form':html})
 
 
-""" Like post comments """
+""" Comentarios en las publicaciones de me gusta """
 @login_required
 def LikeCommentView(request): # , id1, id2              id1=post.pk id2=reply.pk
     post = get_object_or_404(Comment, id=request.POST.get('id'))
@@ -144,7 +144,7 @@ def LikeCommentView(request): # , id1, id2              id1=post.pk id2=reply.pk
         return JsonResponse({'form':html})
 
 
-""" Home page with all posts """
+""" Pagina de inicio con todas las publicaciones """
 class PostListView(ListView):
     model = Post
     template_name = 'blog/home.html' 
@@ -164,7 +164,7 @@ class PostListView(ListView):
         return context
 
 
-""" All the posts of the user """
+""" Todas las publicaciones de un usuario """
 class UserPostListView(ListView):
     model = Post
     template_name = 'blog/user_posts.html' 
@@ -177,7 +177,7 @@ class UserPostListView(ListView):
 
 
 
-""" Post detail view """
+""" Vista de los detalles de la publicación """
 def PostDetailView(request,pk):
 
     stuff = get_object_or_404(Post, id=pk)
@@ -248,7 +248,7 @@ def PostDetailView(request,pk):
     return render(request, 'blog/post_detail.html', context)
 
 
-""" Create post """
+""" Crear publicación """
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     fields =['title', 'content']
@@ -259,7 +259,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 
 
-""" Update post """
+""" Actualizar publicación """
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     fields =['title', 'content']
@@ -275,7 +275,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return False
 
 
-""" Delete post """
+""" Borrar publicación """
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     success_url = '/'
@@ -287,12 +287,12 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return False
 
 
-""" About page """
+""" Acerca de la página """
 def about(request):
     return render(request, 'blog/about.html', {'title':'About'})
 
 
-""" Search by post title or username """
+""" Buscar publicacion por el titulo o usuario """
 def search(request):
     query = request.GET['query']
     if len(query) >= 150 or len(query) < 1:
@@ -308,7 +308,7 @@ def search(request):
     return render(request, 'blog/search_results.html', params)
 
 
-""" Liked posts """
+""" Publicaciones que le gustan a un usuario """
 @login_required
 def AllLikeView(request):
     user = request.user
@@ -319,7 +319,7 @@ def AllLikeView(request):
     return render(request, 'blog/liked_posts.html', context)
 
 
-""" Saved posts """
+""" Publicaciones guardadas por un usuario """
 @login_required
 def AllSaveView(request):
     user = request.user

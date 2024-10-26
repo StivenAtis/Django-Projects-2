@@ -5,7 +5,6 @@ import uuid
 # Create your models here.
 
 class Room(models.Model):
-    # room_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     room_id = models.AutoField(primary_key=True)
     author = models.ForeignKey(User, related_name='author_room', on_delete=models.CASCADE)
     friend = models.ForeignKey(User, related_name='friend_room', on_delete=models.CASCADE)

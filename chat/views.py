@@ -44,7 +44,7 @@ def room_choice(request, friend_id):
     return redirect('room', room[0].room_id, friend_id)
 
 
-""" Chatroom between users """
+""" Sala de chat entre usuarios """
 @login_required
 def room(request, room_name, friend_id):
     all_rooms = Room.objects.filter(room_id=room_name)

@@ -34,7 +34,7 @@
 
 <div class="m-auto col-md-8">
 <div class="content-section">
-    <h3 class="border-bottom pb-3 mb-4">Join Today</h3>
+    <h3 class="border-bottom pb-3 mb-4">Únete hoy</h3>
 
     <form action="" method="POST">
         {% csrf_token %}
@@ -45,12 +45,12 @@
             <div class="g-recaptcha" data-sitekey="6LeCKGsqAAAAAOqCwmv_lHYvzWp1qd2JxedbcS_3"></div> {% endcomment %}
         </fieldset>
         <div class="form-group">
-            <button class="btn btn-outline-info" type="submit">Sign Up</button>
+            <button class="btn btn-outline-info" type="submit">Registrarse</button>
         </div>
     </form>
     <div class="border-top pt-3">
         <small class="text-muted">
-            Already Have an Account? <a class="ml-2" href="{% url 'account_login' %}">Sign In</a>
+            ¿Ya tienes una cuenta? <a class="ml-2" href="{% url 'account_login' %}">Iniciar sesión</a>
         </small>
     </div>
 </div>

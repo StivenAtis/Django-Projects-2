@@ -9,13 +9,13 @@
     <form action="" method="POST">
         {% csrf_token %}
         <fieldset class="form-group">
-            <legend class="border-bottom mb-4">New Post</legend>
+            <legend class="border-bottom mb-4">Nueva publicación</legend>
             {{form.media}}
             {{form|crispy}}
         </fieldset>
         <div class="form-group">
-            <button class="btn btn-info" type="submit">Post</button>
-            <a class="btn btn-danger" href="{% url 'blog-home' %}">Cancel</a>
+            <button class="btn btn-info" type="submit">Publicar</button>
+            <a class="btn btn-danger" href="{% url 'blog-home' %}">Cancelar</a>
         </div>
     </form>
 </div>

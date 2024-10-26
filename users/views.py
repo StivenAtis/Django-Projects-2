@@ -66,7 +66,7 @@ def register(request):
             # if result['success']:
                 form.save()
                 username = form.cleaned_data.get('username')
-                messages.success(request, f"Your account has been created! You can login now")
+                messages.success(request, f"¡Tu cuenta ha sido creada! Puedes iniciar sesión ahora")
                 return redirect('login')
             # else:
             #     messages.error(request, 'Invalid reCAPTCHA. Please try again.')            
@@ -86,7 +86,7 @@ def profile(request):
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
-            messages.success(request, f"Your account has been updated!")
+            messages.success(request, f"¡Tu cuenta ha sido actualizada!")
             return redirect('profile')
     else:
         u_form = UserUpdateForm(instance=request.user)

@@ -38,19 +38,19 @@
     <form action="" method="POST">
         {% csrf_token %}
         <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Login</legend>
+            <legend class="border-bottom mb-4">Iniciar sesión</legend>
             {{form|crispy}}
         </fieldset>
         <div class="form-group">
-            <button class="btn btn-outline-info" type="submit">Login</button>
+            <button class="btn btn-outline-info" type="submit">Iniciar sesión</button>
             <small class="text-muted ml-2">
-                <a href="{% url 'password_reset' %}">Forgot Password?</a>
+                <a href="{% url 'password_reset' %}">¿Olvidó la contraseña?</a>
             </small>
         </div>
     </form>
     <div class="or-container">
         <div class="line-separator"></div>
-        <div class="or-label">or</div>
+        <div class="or-label">ó</div>
         <div class="line-separator"></div>
     </div>
     <div class="row">
@@ -71,7 +71,7 @@
     </div> <br>
     <div class="border-top pt-3">
         <small class="text-muted">
-            Need an Account? <a class="ml-2" href="{% url 'register' %}">Sign Up Now</a>
+            ¿Necesita una cuenta? <a class="ml-2" href="{% url 'register' %}">Regístrate ahora</a>
         </small>
     </div>
 </div>

@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 
-""" FriendList model """
+""" Modelo de lista de amigos """
 class FriendList(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user')
     friends = models.ManyToManyField(User, blank=True, related_name='friends')
@@ -35,7 +35,7 @@ class FriendList(models.Model):
         return False
 
 
-""" Friend Request model """
+""" Modelo de solicitud de amistad """
 class FriendRequest(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sender')
     receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='receiver')
@@ -46,7 +46,6 @@ class FriendRequest(models.Model):
         return self.sender.username
 
     def accept(self):
-        # update both sender and receiver friend list
         receiver_friend_list = FriendList.objects.get(user=self.receiver)
         if receiver_friend_list:
             receiver_friend_list.add_friend(self.sender)

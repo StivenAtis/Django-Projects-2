@@ -9,7 +9,7 @@
 			timeout: 5000,
 			success: function(data) {
 				console.log("SUCCESS", data)
-				if(data['response'] == "Friend request declined."){
+				if(data['response'] == "Solicitud de amistad rechazada."){
 					// ui is updated
 				}
 				else if(data['response'] != null){
@@ -18,7 +18,7 @@
 			},
 			error: function(data) {
 				console.error("ERROR...", data)
-				alert("Something went wrong.")
+				alert("Algo salió mal.")
 			},
 			complete: function(data){
 				uiUpdateFunction()

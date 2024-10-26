@@ -6,7 +6,7 @@
 {% block content %}
 
 {% if notifications|length == 0 %}
-    <span class="content-section container">No Notifications</span>
+    <span class="content-section container">Sin notificaciones</span>
 {% endif %}
 
 <div class="col-md-8 m-auto">
@@ -20,13 +20,13 @@
             <span class="text-muted float-right small">{{notification.date|naturaltime}}</span>
             <br><br>
             {% if notification.notification_type == 1 %}
-                <p class="card-text"><i class="far fa-thumbs-up"></i>&nbsp;&nbsp;Liked your post "<a href="{% url 'post-detail' notification.post.id %}" >{{notification.post}}</a>"</p>
+                <p class="card-text"><i class="far fa-thumbs-up"></i>&nbsp;&nbsp;Le gusto tú publicación "<a href="{% url 'post-detail' notification.post.id %}" >{{notification.post}}</a>"</p>
             {% elif notification.notification_type == 2 %}
-                <p class="card-text"><i class="fas fa-user-friends"></i>&nbsp;&nbsp;Started following you</p>
+                <p class="card-text"><i class="fas fa-user-friends"></i>&nbsp;&nbsp;Comenzo a seguirte</p>
             {% elif notification.notification_type == 3 %}
-                <p class="card-text"><i class="far fa-comment-dots"></i>&nbsp;&nbsp;Commented "{{notification.text_preview}}" on your post "<a href="{% url 'post-detail' notification.post.id %}" >{{notification.post}}</a>"</p>
+                <p class="card-text"><i class="far fa-comment-dots"></i>&nbsp;&nbsp;Comentó "{{notification.text_preview}}" en tú publicación "<a href="{% url 'post-detail' notification.post.id %}" >{{notification.post}}</a>"</p>
             {% elif notification.notification_type == 4 %}
-                <p class="card-text"><i class="fas fa-reply"></i>&nbsp;&nbsp;Replied "{{notification.text_preview}}" to a comment on your post "<a href="{% url 'post-detail' notification.post.id %}" >{{notification.post}}</a>"</p>
+                <p class="card-text"><i class="fas fa-reply"></i>&nbsp;&nbsp;Respondió "{{notification.text_preview}}" a un comentario en tu publicación "<a href="{% url 'post-detail' notification.post.id %}" >{{notification.post}}</a>"</p>
             {% endif %}
         </div>
     </div>

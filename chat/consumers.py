@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from asgiref.sync import sync_to_async, async_to_sync
 
 
-"""MESSAGE DB ENTRY"""
+"""ENTRADA DE MENSAJE EN LA BASE DE DATOS"""
 @sync_to_async
 def create_new_message(me,friend,message,room_id):
     get_room = Room.objects.filter(room_id=room_id)[0]
@@ -20,7 +20,7 @@ def create_new_message(me,friend,message,room_id):
 
 class ChatRoomConsumer(AsyncWebsocketConsumer):
 
-    """Connect"""
+    """Conectar"""
     async def connect(self):
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.room_group_name = 'chat_%s' % self.room_name
@@ -32,14 +32,14 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
 
         await self.accept()
 
-    """Disconnect"""
+    """Desconectar"""
     async def disconnect(self, close_code):
         await self.channel_layer.group_discard(
             self.room_group_name,
             self.channel_name
         )
 
-    """Receive"""
+    """Aceptar"""
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
@@ -56,9 +56,7 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
             }
         )
 
-
-
-    """Messages"""
+    """Mensajes"""
     async def chatroom_message(self, event):
         message = event['message']
         username = event['username']

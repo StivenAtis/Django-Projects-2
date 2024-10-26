@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from ckeditor.fields import RichTextField
 
-""" Post model """
+""" Model de publicación """
 class Post(models.Model):
     title = models.CharField(max_length=150)
     content = RichTextField(blank=True, null=True)
@@ -27,7 +27,7 @@ class Post(models.Model):
         return reverse('post-detail', kwargs={"pk":self.pk})
 
 
-""" Comment model """
+""" Model de comentario """
 class Comment(models.Model):
     post = models.ForeignKey(Post, related_name="comments" , on_delete=models.CASCADE)
     name = models.ForeignKey(User, on_delete=models.CASCADE)

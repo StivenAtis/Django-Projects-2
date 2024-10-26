@@ -7,12 +7,12 @@
 {% block content %}
 
 {% if not all_rooms %}
-    <span class="container">You need to be friends wih someone to chat</span>
+    <span class="container">Necesitas ser amigo de alguien para chatear.</span>
 {% endif %}
 
 <div class="col-md-8">
 
-    <!-- ALL CHATROOMS-->
+    <!-- TODOS LOS CHATS-->
     <div class="px-0">
         <div class="bg-white">
 
@@ -109,7 +109,7 @@
 <!-- SIDEBAR -->
 <div class="col-md-4">
     <div class="content-section">
-        <h3>Friends ({{all_friends.count}})</h3>
+        <h3>Amigos ({{all_friends.count}})</h3>
         <br>
             <ul class="list-group">
                 {% for frnd in all_friends %}
@@ -126,8 +126,6 @@
 {% block script %}
 <script>
     async function handleVCRedirect(id1,name) {
-        // let room = (parseInt(id1) > parseInt(id2)) ? "vcroom_" + id1 + "_" + {{request.user.id}} : "vcroom_" + {{request.user.id}} + "_" + id1;
-        // room = room.toUpperCase()
         room = id1
 
         let response = await fetch(`/vc/get_token/?channel=${room}`)
