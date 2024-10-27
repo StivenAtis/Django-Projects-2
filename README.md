@@ -1,4 +1,4 @@
-# Django Social Network
+# Django Social-App
 
 A social media web-application with Django.
 
