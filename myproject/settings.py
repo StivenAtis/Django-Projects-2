@@ -37,78 +37,89 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 
+# Lista de aplicaciones instaladas en el proyecto.
 INSTALLED_APPS = [
-    'crispy_forms',
-    'django_cleanup',
+    'crispy_forms',                  # Mejora el renderizado de formularios.
+    'django_cleanup',                # Borra archivos asociados al eliminar modelos.
 
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.sites',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.humanize',
+    # Aplicaciones contribuidas por Django.
+    'django.contrib.admin',          # Administración de Django.
+    'django.contrib.auth',           # Autenticación de usuarios.
+    'django.contrib.sites',          # Soporte para sitios múltiples.
+    'django.contrib.contenttypes',   # Manejo de tipos de contenido.
+    'django.contrib.sessions',       # Manejo de sesiones.
+    'django.contrib.messages',       # Manejo de mensajes.
+    'django.contrib.staticfiles',    # Archivos estáticos.
+    'django.contrib.humanize',       # Filtros para formateo humanizado.
 
-    'ckeditor',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.github',
-    'blog.apps.BlogConfig',
-    'users.apps.UsersConfig',
-    'notification',
-    'chat',
-    'channels',
-    'friend',
-    'videocall',
+    # Librerías y aplicaciones adicionales.
+    'ckeditor',                      # Editor de texto enriquecido.
+    'allauth',                       # Autenticación extensible.
+    'allauth.account',               # Manejo de cuentas en allauth.
+    'allauth.socialaccount',         # Integración de cuentas sociales.
+    'allauth.socialaccount.providers.google',  # Autenticación con Google.
+    'allauth.socialaccount.providers.github',  # Autenticación con GitHub.
+
+    # Aplicaciones del proyecto.
+    'blog.apps.BlogConfig',          # Configuración de la app de blog.
+    'users.apps.UsersConfig',        # Configuración de la app de usuarios.
+    'notification',                  # Notificaciones en la app.
+    'chat',                          # Funcionalidad de chat.
+    'channels',                      # Soporte para WebSockets y protocolos asíncronos.
+    'friend',                        # Funcionalidad de amistad.
+    'videocall',                     # Funcionalidad de videollamadas.
 ]
 
+# Lista de middlewares que procesan las solicitudes y respuestas.
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'allauth.account.middleware.AccountMiddleware',
+    'django.middleware.security.SecurityMiddleware',               # Seguridad.
+    'django.contrib.sessions.middleware.SessionMiddleware',         # Manejo de sesiones.
+    'django.middleware.common.CommonMiddleware',                    # Funcionalidades comunes.
+    'django.middleware.csrf.CsrfViewMiddleware',                   # Protección CSRF.
+    'django.contrib.auth.middleware.AuthenticationMiddleware',      # Autenticación.
+    'django.contrib.messages.middleware.MessageMiddleware',         # Manejo de mensajes.
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',       # Protección contra clickjacking.
+    'allauth.account.middleware.AccountMiddleware',                 # Manejo de cuentas de allauth.
 ]
 
+# Ruta principal de configuración de URL del proyecto.
 ROOT_URLCONF = 'myproject.urls'
 
+# Configuración de plantillas de Django.
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'users/templates')],
-        'APP_DIRS': True,
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',  # Motor de plantillas de Django.
+        'DIRS': [os.path.join(BASE_DIR, 'users/templates')],           # Directorios personalizados para plantillas.
+        'APP_DIRS': True,                                              # Carga plantillas desde aplicaciones instaladas.
         'OPTIONS': {
             'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.debug',            # Procesador para depuración en plantillas.
+                'django.template.context_processors.request',          # Procesador para datos de solicitudes.
+                'django.contrib.auth.context_processors.auth',         # Procesador para datos de autenticación.
+                'django.contrib.messages.context_processors.messages', # Procesador para mensajes.
             ],
         },
     },
 ]
 
+# Backends de autenticación para manejar la autenticación de usuarios.
 AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
+    'django.contrib.auth.backends.ModelBackend',                # Backend predeterminado de Django.
+    'allauth.account.auth_backends.AuthenticationBackend',      # Backend de autenticación de allauth para cuentas sociales.
 ]
 
+# Configuración de la aplicación WSGI para manejar solicitudes HTTP.
 WSGI_APPLICATION = 'myproject.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# Configuración de la base de datos.
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3',   # Motor de base de datos, en este caso SQLite.
+        'NAME': BASE_DIR / 'db.sqlite3',          # Ruta de la base de datos en el directorio base del proyecto.
     }
 }
 
@@ -127,6 +138,7 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
+# Validadores de contraseña para mejorar la seguridad de las contraseñas de usuario.
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -146,78 +158,91 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'es'
+# Configuración de idioma y zona horaria para el proyecto Django.
+LANGUAGE_CODE = 'es'                      # Código de idioma, en este caso español.
 
-TIME_ZONE = 'America/Bogota'
+TIME_ZONE = 'America/Bogota'              # Zona horaria del proyecto.
 
-USE_I18N = True
+USE_I18N = True                            # Habilita la internacionalización.
 
-USE_L10N = True
+USE_L10N = True                            # Habilita la localización de formatos de datos.
 
-USE_TZ = True
-
+USE_TZ = True                              # Habilita el uso de zonas horarias.
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
+# Configuración de archivos estáticos y de medios.
+STATIC_URL = '/static/'                             # URL base para archivos estáticos.
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')       # Ruta donde se almacenan los archivos de medios.
+MEDIA_URL = '/media/'                               # URL base para acceder a archivos de medios.
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+# Configuración para crispy-forms, utilizando Bootstrap 4.
+CRISPY_TEMPLATE_PACK = 'bootstrap4'                  # Paquete de plantillas utilizado por crispy-forms.
 
-LOGIN_REDIRECT_URL = 'blog-home'
-LOGIN_URL = 'account_login'
+# Configuración de redirección después del inicio de sesión.
+LOGIN_REDIRECT_URL = 'blog-home'                     # URL a la que se redirige después de iniciar sesión.
+LOGIN_URL = 'account_login'                           # URL para la página de inicio de sesión.
 
+# Configuración del editor CKEditor.
 CKEDITOR_CONFIGS = {
     'default': {
-        'width':'auto',
+        'width': 'auto',                              # Ancho automático para el editor.
     },
 }
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = os.getenv("EMAIL_PORT")
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.getenv('EMAIL_USER')     # environment variable containing username
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASS')  # environment variable containing password
 
+# Configuración del backend de correo electrónico utilizando SMTP con Gmail.
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # Backend para enviar correos electrónicos a través de SMTP.
+EMAIL_HOST = 'smtp.gmail.com'                                   # Servidor SMTP de Gmail.
+EMAIL_PORT = os.getenv("EMAIL_PORT")                            # Puerto SMTP, obtenido de una variable de entorno.
+EMAIL_USE_TLS = True                                            # Utiliza TLS para la seguridad en la conexión.
+EMAIL_HOST_USER = os.getenv('EMAIL_USER')                      # Nombre de usuario del correo electrónico, obtenido de una variable de entorno.
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASS')                  # Contraseña del correo electrónico, obtenida de una variable de entorno.
+
+# Clave secreta para Google reCAPTCHA, obtenida de una variable de entorno.
 GOOGLE_RECAPTCHA_SECRET_KEY = os.getenv("GOOGLE_RECAPTCHA_SECRET_KEY")
 
+# Configuración de etiquetas para los mensajes en Django.
 MESSAGE_TAGS = {
-        messages.DEBUG: 'alert-secondary',
-        messages.INFO: 'alert-info',
-        messages.SUCCESS: 'alert-success',
-        messages.WARNING: 'alert-warning',
-        messages.ERROR: 'alert-danger',
+    messages.DEBUG: 'alert-secondary',      # Clase CSS para mensajes de depuración.
+    messages.INFO: 'alert-info',            # Clase CSS para mensajes informativos.
+    messages.SUCCESS: 'alert-success',      # Clase CSS para mensajes de éxito.
+    messages.WARNING: 'alert-warning',      # Clase CSS para mensajes de advertencia.
+    messages.ERROR: 'alert-danger',         # Clase CSS para mensajes de error.
 }
 
-ASGI_APPLICATION = "myproject.routing.application"
+# Configuración de la aplicación ASGI para manejar conexiones asíncronas.
+ASGI_APPLICATION = "myproject.routing.application"  # Ruta de la aplicación ASGI en el proyecto.
 
+# Configuración de capas de canal para el manejo de comunicaciones en tiempo real.
 CHANNEL_LAYERS = {
-    "default":{
-        "BACKEND":"channels.layers.InMemoryChannelLayer"
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"  # Utiliza una capa de canal en memoria para comunicación asíncrona.
     },
 }
 
-SITE_ID = 2
 
+# ID del sitio en la configuración de Django, usado por django.contrib.sites.
+SITE_ID = 2  # Identificador del sitio para la aplicación.
+
+# Configuración de proveedores de cuentas sociales para autenticación.
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
-        'SCOPE': [
-            'profile',
-            'email',
+        'SCOPE': [                          # Alcance de permisos solicitados a Google.
+            'profile',                      # Permiso para acceder al perfil del usuario.
+            'email',                        # Permiso para acceder al correo electrónico del usuario.
         ],
         'AUTH_PARAMS': {
-            'access_type': 'online',
+            'access_type': 'online',        # Parámetros de autenticación, especificando el tipo de acceso.
         }
     },
     'github': {
-        'SCOPE': [
-            'user',
-            'repo',
-            'read:org',
+        'SCOPE': [                          # Alcance de permisos solicitados a GitHub.
+            'user',                         # Permiso para acceder a información del usuario.
+            'repo',                         # Permiso para acceder a los repositorios del usuario.
+            'read:org',                     # Permiso para leer información de la organización del usuario.
         ],
     }
 }

@@ -1,11 +1,14 @@
 def is_ajax(request):
     """
-    To fix request.is_ajax() error which is deprecated in django > v3.1
+    Verifica si la solicitud es de tipo AJAX.
+
+    Esta función es una alternativa a request.is_ajax() que ha sido 
+    desaprobada en Django versiones superiores a la 3.1.
 
     Args:
-        request (request)
+        request (HttpRequest): El objeto de solicitud para comprobar.
 
     Returns:
-        _type_: boolean
+        bool: True si la solicitud es AJAX, False de lo contrario.
     """
     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
