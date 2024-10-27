@@ -1,2 +1,2 @@
-web: daphne myproject.asgi:application --port $PORT --bind 0.0.0.0 -v2
-chatworker: python manage.py runworker --settings=myproject.settings -v2
+web: daphne myproject.asgi:application --port $PORT --bind 0.0.0.0 -v2  # Inicia el servidor Daphne para la aplicación ASGI en el puerto especificado.
+chatworker: python manage.py runworker --settings=myproject.settings -v2  # Ejecuta un trabajador de Django Channels para manejar las tareas de chat.
