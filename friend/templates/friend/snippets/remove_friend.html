@@ -1,34 +1,44 @@
 <script type="text/javascript">
 	
 	function removeFriend(id, uiUpdateFunction){
+		// Crea el objeto de datos que se enviará en la solicitud AJAX, incluyendo el token CSRF y el ID del usuario a eliminar.
 		payload = {
-			"csrfmiddlewaretoken": "{{ csrf_token }}",
-			"receiver_user_id": id,
+			"csrfmiddlewaretoken": "{{ csrf_token }}",  // Token CSRF para proteger contra ataques CSRF.
+			"receiver_user_id": id,  // ID del amigo que se desea eliminar.
 		}
+		
+		// Inicia la solicitud AJAX para eliminar al amigo.
 		$.ajax({
-			type: 'POST',
-			dataType: "json",
-			url: "{% url 'friend:remove-friend' %}",
-			timeout: 5000,
-			data: payload,
+			type: 'POST',  // Método de la solicitud.
+			dataType: "json",  // Tipo de datos que se espera de la respuesta.
+			url: "{% url 'friend:remove-friend' %}",  // URL para eliminar al amigo.
+			timeout: 5000,  // Tiempo de espera para la solicitud en milisegundos.
+			data: payload,  // Datos que se envían en la solicitud.
+			
+			// Función que se ejecuta si la solicitud es exitosa.
 			success: function(data) {
-				console.log("SUCCESS", data)
+				console.log("SUCCESS", data)  // Muestra el resultado en la consola.
+				
+				// Verifica si la respuesta indica que el amigo fue eliminado con éxito.
 				if(data['response'] == "Amigo eliminado con éxito."){
-					// UI gets updated
+					// Aquí se actualiza la interfaz de usuario.
 				}
 				else if(data['response'] != null){
+					// Muestra un mensaje de alerta con la respuesta del servidor.
 					alert(data['response'])
 				}
 			},
+			
+			// Función que se ejecuta si ocurre un error en la solicitud.
 			error: function(data) {
-				console.error("ERROR...", data)
-				alert("Algo salió mal.")
+				console.error("ERROR...", data)  // Muestra el error en la consola.
+				alert("Algo salió mal.")  // Informa al usuario que hubo un error.
 			},
+			
+			// Función que se ejecuta al finalizar la solicitud, sin importar si fue exitosa o fallida.
 			complete: function(data){
-				uiUpdateFunction()
+				uiUpdateFunction()  // Llama a la función para actualizar la interfaz de usuario.
 			}
 		});
 	}
-	
-
 </script>

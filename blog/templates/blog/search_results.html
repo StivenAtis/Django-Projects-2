@@ -1,69 +1,64 @@
-{% extends "blog/base.html" %}
+{% extends "blog/base.html" %}  <!-- Extiende la plantilla base del blog -->
 
-{% block title %}Search Results{% endblock %}
+{% block title %}Search Results{% endblock %}  <!-- Define el título de la página como 'Resultados de búsqueda' -->
 
 {% block content %}
+<div class="col-md-8 m-auto">  <!-- Contenedor centrado para el contenido -->
 
-<div class="col-md-8 m-auto">
-  
 <div class="content-section">
-  <h3>Resultados de busqueda ({{allposts|length}})</h3>
+  <h3>Resultados de busqueda ({{allposts|length}})</h3>  <!-- Muestra la cantidad de publicaciones encontradas -->
 </div>
 
-    {% if allposts|length == 0 %}
+    {% if allposts|length == 0 %}  <!-- Verifica si no hay publicaciones -->
       <div class="content-section">
-        <p>Tu búsqueda no coincide con ninguna publicación ...</p>
+        <p>Tu búsqueda no coincide con ninguna publicación ...</p>  <!-- Mensaje de error si no se encuentran resultados -->
 
         <p class="text-muted">Sugerencias:</p>
-        <ul class="text-muted">
+        <ul class="text-muted">  <!-- Sugerencias para mejorar la búsqueda -->
             <li>Asegúrese de que todas las palabras estén escritas correctamente.</li> 
             <li>Pruebe diferentes palabras clave.</li>
         </ul> 
       </div>
       <br><br>
     {% endif %}
-    {% for post in allposts %}
-
-    <article class="content-section" style="overflow: auto;">
-      <div class="media">
-          <img class="rounded-circle article-img" src="{{post.author.profile.image.url}}" alt="image">
+    
+    {% for post in allposts %}  <!-- Itera sobre todas las publicaciones encontradas -->
+    <article class="content-section" style="overflow: auto;">  <!-- Sección de contenido para cada publicación -->
+      <div class="media">  <!-- Contenedor de medios para la imagen y el contenido -->
+          <img class="rounded-circle article-img" src="{{post.author.profile.image.url}}" alt="image">  <!-- Imagen del autor -->
           <div class="media-body">
               <p>
-                <a class="mr-2 h4" href="{% url 'profile-detail-view' post.author.pk %}">{{ post.author }}</a>
+                <a class="mr-2 h4" href="{% url 'profile-detail-view' post.author.pk %}">{{ post.author }}</a>  <!-- Enlace al perfil del autor -->
               </p>
-              <small class="text-muted">{{ post.date_posted|date:"F d, Y-h:i A" }}</small>
+              <small class="text-muted">{{ post.date_posted|date:"F d, Y-h:i A" }}</small>  <!-- Fecha de publicación -->
           </div>
       </div>
       <hr>
-      <h3><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h3>
+      <h3><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h3>  <!-- Título de la publicación con enlace -->
       <hr>
-      <p class="article-content">{{ post.content|safe|linebreaks|truncatewords_html:"20" }}<a href="{% url 'post-detail' post.id %}">[Leer el post completo]</a></p>
+      <p class="article-content">{{ post.content|safe|linebreaks|truncatewords_html:"20" }}<a href="{% url 'post-detail' post.id %}">[Leer el post completo]</a></p>  <!-- Contenido truncado de la publicación -->
     </article>
-
     {% endfor %}
 
-    {% if is_paginated %}
-
-      {% if page_obj.has_previous %}
-        <a class="btn btn-outline-info mb-4" href="?page=1">Primero</a>
-        <a class="btn btn-outline-info mb-4" href="?page={{page_obj.previous_page_number}}">Anterior</a>
+    {% if is_paginated %}  <!-- Verifica si hay paginación -->
+      {% if page_obj.has_previous %}  <!-- Verifica si hay páginas anteriores -->
+        <a class="btn btn-outline-info mb-4" href="?page=1">Primero</a>  <!-- Enlace a la primera página -->
+        <a class="btn btn-outline-info mb-4" href="?page={{page_obj.previous_page_number}}">Anterior</a>  <!-- Enlace a la página anterior -->
       {% endif %}
 
-      {% for num in page_obj.paginator.page_range %}
-        {% if page_obj.number == num %}
-          <a class="btn btn-info mb-4" href="?page={{num}}">{{num}}</a>
-        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-        <a class="btn btn-outline-info mb-4" href="?page={{num}}">{{num}}</a>
+      {% for num in page_obj.paginator.page_range %}  <!-- Itera sobre el rango de páginas -->
+        {% if page_obj.number == num %}  <!-- Si es la página actual -->
+          <a class="btn btn-info mb-4" href="?page={{num}}">{{num}}</a>  <!-- Botón activo para la página actual -->
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}  <!-- Para mostrar páginas cercanas -->
+          <a class="btn btn-outline-info mb-4" href="?page={{num}}">{{num}}</a>  <!-- Enlace a páginas cercanas -->
         {% endif %}
       {% endfor %}
 
-      {% if page_obj.has_next %}
-        <a class="btn btn-outline-info mb-4" href="?page={{page_obj.next_page_number}}">Siguiente</a>
-        <a class="btn btn-outline-info mb-4" href="?page={{page_obj.paginator.num_pages}}">Último</a>
+      {% if page_obj.has_next %}  <!-- Verifica si hay páginas siguientes -->
+        <a class="btn btn-outline-info mb-4" href="?page={{page_obj.next_page_number}}">Siguiente</a>  <!-- Enlace a la página siguiente -->
+        <a class="btn btn-outline-info mb-4" href="?page={{page_obj.paginator.num_pages}}">Último</a>  <!-- Enlace a la última página -->
       {% endif %}
-
     {% endif %}
-
 </div>
 
 {% endblock %}

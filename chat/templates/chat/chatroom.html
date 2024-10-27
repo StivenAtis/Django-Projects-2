@@ -30,7 +30,7 @@
             <!-- LOS CHATS ANTIGUOS SE OBTENGAN DE LA BASE DE DATOS Y LOS NUEVOS SE AGREGAN A CONTINUACIÓN -->
             {% for chat in old_chats %}
                 {% if chat.author != request.user %}
-                <!-- Sender Message Mensaje del remitente -->
+                <!-- Mensaje del remitente -->
                 <div class="media w-75 mb-3">
                 <img src="{{chat.author.profile.image.url}}" alt="user" width="40" height="40" class="rounded-circle">
                 <div class="media-body ml-3">
@@ -87,6 +87,7 @@
     {{ room_name|json_script:"room-name" }}
     {{ request.user.profile.image.url|json_script:"user_image"}}
     <script>
+        // Configura evento para enviar mensaje al presionar Enter en el campo de entrada
         document.querySelector('#input').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 e.preventDefault();
@@ -94,30 +95,36 @@
             }
         });
 
+        // Asigna valores de usuario y variables a partir de los datos de Django
         let my_name = '{{ my_name }}';
         const user_username = JSON.parse(document.getElementById('user_username').textContent);
         const user_image = JSON.parse(document.getElementById('user_image').textContent);
+
+        // Evento de envío de mensaje al hacer clic en el botón "Enviar"
         document.querySelector('#submit').onclick = function (e) {
             const messageInputDom = document.querySelector('#input');
             const message = messageInputDom.value;
-            if(message.trim().length!=0) {
+            
+            // Validación: asegura que el mensaje no esté vacío
+            if(message.trim().length != 0) {
                 chatSocket.send(JSON.stringify({
-                    'message': message,
-                    'username': user_username,
-                    'user_image': user_image,
+                    'message': message,           // Mensaje enviado por el usuario
+                    'username': user_username,     // Nombre de usuario que envía el mensaje
+                    'user_image': user_image,      // Imagen de usuario del remitente
                 }));
-                messageInputDom.value = '';
-                messageInputDom.focus();
+                messageInputDom.value = '';        // Limpia el campo de entrada
+                messageInputDom.focus();           // Enfoca el campo de entrada
             }
-            else{
-                alert("El mensaje no puede quedar en blanco");
+            else {
+                alert("El mensaje no puede quedar en blanco");  // Alerta si el mensaje está vacío
                 messageInputDom.focus();
             }
         };
 
-
+        // Obtiene el nombre de la sala de chat de los datos de Django
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
 
+        // Configura el WebSocket para conectarse a la sala de chat
         const chatSocket = new WebSocket(
             'ws://' +
             window.location.host +
@@ -126,79 +133,79 @@
             '/'
         );
 
+        // Evento para recibir mensajes del WebSocket
         chatSocket.onmessage = function (e) {
             const data = JSON.parse(e.data);
-            console.log(data)
+            console.log(data);
             
+            // Distingue entre mensajes enviados y recibidos para aplicar el formato adecuado
             if (data.username != my_name)
-                add_sender_chat(data)
+                add_sender_chat(data);  // Mensaje recibido de otro usuario
             else
-                add_receiver_chat(data)
+                add_receiver_chat(data); // Mensaje enviado por el usuario actual
         }
 
-
+        // Función para mostrar el mensaje del remitente en el chat
         function add_sender_chat(data) {
-            
-            var chat_window = document.querySelector('.chat-text-add')
-            var message = document.createElement('div')
-            message.classList.add('media', 'w-75', 'mb-3')
-            chat_window.appendChild(message)
+            var chat_window = document.querySelector('.chat-text-add');
+            var message = document.createElement('div');
+            message.classList.add('media', 'w-75', 'mb-3');  // Estilos de clase para el mensaje
+            chat_window.appendChild(message);
 
-            var image = document.createElement('img')
-            image.src = String(data.user_image)
-            image.classList.add('rounded-circle')
-            image.width = 40
-            image.height = 40
-            image.alt = data.username
-            message.appendChild(image)
+            var image = document.createElement('img');
+            image.src = String(data.user_image);
+            image.classList.add('rounded-circle');  // Imagen del remitente
+            image.width = 40;
+            image.height = 40;
+            image.alt = data.username;
+            message.appendChild(image);
 
-            var text_div = document.createElement('div')
-            text_div.classList.add('media-body', 'ml-3')
-            message.appendChild(text_div)
+            var text_div = document.createElement('div');
+            text_div.classList.add('media-body', 'ml-3');  // Contenedor de texto del mensaje
+            message.appendChild(text_div);
 
-            var text_div_div = document.createElement('div')
-            text_div_div.classList.add('bg-light', 'rounded', 'py-2', 'px-3', 'mb-2')
-            text_div.appendChild(text_div_div)
+            var text_div_div = document.createElement('div');
+            text_div_div.classList.add('bg-light', 'rounded', 'py-2', 'px-3', 'mb-2');  // Estilos de fondo para el mensaje
+            text_div.appendChild(text_div_div);
 
-            var text_div_div_p = document.createElement('p')
-            text_div_div_p.classList.add('text-small', 'mb-0', 'text-muted')
-            text_div_div_p.innerHTML = data.message
-            text_div_div.appendChild(text_div_div_p)
+            var text_div_div_p = document.createElement('p');
+            text_div_div_p.classList.add('text-small', 'mb-0', 'text-muted');  // Estilos de texto para el mensaje
+            text_div_div_p.innerHTML = data.message;
+            text_div_div.appendChild(text_div_div_p);
 
-            text_div_date = document.createElement('p')
-            text_div_date.classList.add('small', 'text-muted')
-            text_div_date.innerHTML = new Date().toLocaleString()
-            text_div.appendChild(text_div_date)
-
+            var text_div_date = document.createElement('p');
+            text_div_date.classList.add('small', 'text-muted');  // Fecha y hora del mensaje
+            text_div_date.innerHTML = new Date().toLocaleString();
+            text_div.appendChild(text_div_date);
         }
 
-        function add_receiver_chat(data){
-            var chat_window = document.querySelector('.chat-text-add')
+        // Función para mostrar el mensaje del usuario actual en el chat
+        function add_receiver_chat(data) {
+            var chat_window = document.querySelector('.chat-text-add');
 
-            var message = document.createElement('div')
-            message.classList.add('media', 'w-75', 'ml-auto', 'mb-3')
-            chat_window.appendChild(message)
+            var message = document.createElement('div');
+            message.classList.add('media', 'w-75', 'ml-auto', 'mb-3');  // Estilos de clase para el mensaje del usuario actual
+            chat_window.appendChild(message);
 
-            var text_div = document.createElement('div')
-            text_div.classList.add('media-body')
-            message.appendChild(text_div)
+            var text_div = document.createElement('div');
+            text_div.classList.add('media-body');  // Contenedor de texto del mensaje
+            message.appendChild(text_div);
 
-            var text_div_div = document.createElement('div')
-            text_div_div.classList.add('bg-primary', 'rounded', 'py-2', 'px-3', 'mb-2')
-            text_div.appendChild(text_div_div)
+            var text_div_div = document.createElement('div');
+            text_div_div.classList.add('bg-primary', 'rounded', 'py-2', 'px-3', 'mb-2');  // Estilos de fondo para el mensaje del usuario
+            text_div.appendChild(text_div_div);
 
-            var text_div_div_p = document.createElement('p')
-            text_div_div_p.classList.add('text-small', 'mb-0', 'text-white')
-            text_div_div_p.innerHTML = data.message
-            text_div_div.appendChild(text_div_div_p)
+            var text_div_div_p = document.createElement('p');
+            text_div_div_p.classList.add('text-small', 'mb-0', 'text-white');  // Estilos de texto para el mensaje del usuario
+            text_div_div_p.innerHTML = data.message;
+            text_div_div.appendChild(text_div_div_p);
 
-            text_div_date = document.createElement('p')
-            text_div_date.classList.add('small', 'text-muted')
-            text_div_date.innerHTML = new Date().toLocaleString()
-            text_div.appendChild(text_div_date)
+            var text_div_date = document.createElement('p');
+            text_div_date.classList.add('small', 'text-muted');  // Fecha y hora del mensaje
+            text_div_date.innerHTML = new Date().toLocaleString();
+            text_div.appendChild(text_div_date);
         }
 
     </script>
-
 
 {% endblock %}

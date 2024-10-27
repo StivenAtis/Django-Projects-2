@@ -93,26 +93,28 @@
 {% block script %}
 
 <script type="text/javascript">
-
+    // Función que se llama cuando una solicitud de amistad es aceptada
 	function onFriendRequestAccepted(){
-		location.reload();
+		location.reload();  // Recarga la página para reflejar el cambio.
 	}
 
+    // Función que se llama cuando una solicitud de amistad es rechazada
 	function onFriendRequestDeclined(){
-		location.reload();
+		location.reload();  // Recarga la página para reflejar el cambio.
 	}
 
+    // Función para activar la aceptación de una solicitud de amistad
 	function triggerAcceptFriendRequest(friend_request_id){
-		acceptFriendRequest(friend_request_id, onFriendRequestAccepted)
+		acceptFriendRequest(friend_request_id, onFriendRequestAccepted);  // Llama a la función de aceptación y pasa la función de callback.
 	}
 
+    // Función para activar el rechazo de una solicitud de amistad
 	function triggerDeclineFriendRequest(friend_request_id){
-		declineFriendRequest(friend_request_id, onFriendRequestDeclined)
+		declineFriendRequest(friend_request_id, onFriendRequestDeclined);  // Llama a la función de rechazo y pasa la función de callback.
 	}
 </script>
 
-{% include 'friend/snippets/accept_friend_request.html' %}
-{% include 'friend/snippets/decline_friend_request.html' %}
-
+{% include 'friend/snippets/accept_friend_request.html' %}  // Incluye el snippet para aceptar solicitudes de amistad.
+{% include 'friend/snippets/decline_friend_request.html' %}  // Incluye el snippet para rechazar solicitudes de amistad.
 
 {% endblock %}

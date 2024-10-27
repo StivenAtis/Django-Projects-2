@@ -60,31 +60,34 @@
 </div>
 
 {% endblock %}
-
 {% block script %}
 <script>
-    async function handleVCRedirect(id1,name) {
-        room = id1
+    async function handleVCRedirect(id1, name) {
+        room = id1  // Asigna el identificador de la sala a la variable room.
 
+        // Realiza una solicitud para obtener el token de acceso a la sala de videoconferencia.
         let response = await fetch(`get_token/?channel=${room}`)
         
-        if(response.status == 200) {
-            let data = await response.json()
-            console.log(response);
+        // Verifica si la respuesta es exitosa (código de estado 200).
+        if (response.status == 200) {
+            let data = await response.json()  // Convierte la respuesta JSON a un objeto JavaScript.
+            console.log(response);  // Imprime la respuesta en la consola.
 
+            // Extrae el UID, el token y el nombre de la sala del objeto de datos.
             let UID = data.uid
             let token = data.token
             let room_name = data.room_name
 
+            // Almacena los datos en sessionStorage para su uso posterior.
             sessionStorage.setItem('UID', UID)
             sessionStorage.setItem('token', token)
             sessionStorage.setItem('room', room_name)
             sessionStorage.setItem('name', name)
 
+            // Abre una nueva ventana para la sala de videoconferencia.
             window.open('/vc/room/', '_blank')
         }
     }
-    
 </script>
 {% endblock script %}
 

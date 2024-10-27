@@ -125,25 +125,31 @@
 
 {% block script %}
 <script>
-    async function handleVCRedirect(id1,name) {
-        room = id1
+    // Función asíncrona para manejar la redirección a una videollamada, tomando un ID de sala y nombre de usuario
+    async function handleVCRedirect(id1, name) {
+        room = id1;  // Asigna el ID de la sala a la variable 'room'
 
-        let response = await fetch(`/vc/get_token/?channel=${room}`)
+        // Solicita un token de acceso para la videollamada usando la sala específica
+        let response = await fetch(`/vc/get_token/?channel=${room}`);
         
+        // Verifica que la respuesta sea exitosa
         if(response.status == 200) {
-            let data = await response.json()
+            let data = await response.json();  // Convierte la respuesta en formato JSON
             console.log(response);
 
-            let UID = data.uid
-            let token = data.token
-            let room_name = data.room_name
+            // Extrae los datos necesarios para la videollamada del objeto JSON
+            let UID = data.uid;
+            let token = data.token;
+            let room_name = data.room_name;
 
-            sessionStorage.setItem('UID', UID)
-            sessionStorage.setItem('token', token)
-            sessionStorage.setItem('room', room_name)
-            sessionStorage.setItem('name', name)
+            // Almacena el UID, token, nombre de sala y nombre de usuario en el sessionStorage para usarlos en la videollamada
+            sessionStorage.setItem('UID', UID);
+            sessionStorage.setItem('token', token);
+            sessionStorage.setItem('room', room_name);
+            sessionStorage.setItem('name', name);
 
-            window.open('/vc/room/', '_blank')
+            // Abre una nueva ventana o pestaña para unirse a la videollamada
+            window.open('/vc/room/', '_blank');
         }
     }
     
