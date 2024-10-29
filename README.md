@@ -16,3 +16,11 @@ A social media web-application with Django.
     (venv) python manage.py createsuperuser
     (venv) python manage.py runserver
 ```
+
+----------------------------------
+
+<p align="center">
+  <img src="https://github.com/StivenAtis/Django-Projects-2/blob/secondApp/imgs/InitialDiagram.png" />
+</p>
+
+----------------------------------
