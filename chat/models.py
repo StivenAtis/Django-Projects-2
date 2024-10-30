@@ -4,6 +4,16 @@ import uuid  # Importa uuid para la creación de identificadores únicos si fuer
 
 # Define los modelos para la aplicación de chat
 
+"""
+    Modelo que representa una sala de chat entre dos usuarios. Cada sala está identificada
+    por un `room_id` único y es creada por un usuario (autor), quien puede invitar a otro usuario (amigo).
+    
+    Atributos:
+        room_id (AutoField): Clave primaria que identifica de forma única cada sala.
+        author (ForeignKey): Referencia al usuario que creó la sala (autor). 
+        friend (ForeignKey): Referencia al usuario invitado o amigo con quien se realizará el chat.
+        created (DateTimeField): Fecha y hora de creación de la sala.
+"""
 class Room(models.Model):
     room_id = models.AutoField(primary_key=True)  # Campo de clave primaria para identificar cada sala
     author = models.ForeignKey(User, related_name='author_room', on_delete=models.CASCADE)  # Usuario que creó la sala
@@ -14,6 +24,17 @@ class Room(models.Model):
         return f"{self.room_id}-{self.author}-{self.friend}"  # Representación en string de la sala para facilitar su identificación
 
 
+"""
+    Modelo que representa un mensaje de chat dentro de una sala específica entre dos usuarios.
+    
+    Atributos:
+        room_id (ForeignKey): Referencia a la sala a la que pertenece el mensaje.
+        author (ForeignKey): Usuario que envió el mensaje.
+        friend (ForeignKey): Usuario destinatario o amigo con quien se comparte el mensaje.
+        text (CharField): Contenido del mensaje de chat, limitado a 300 caracteres.
+        date (DateTimeField): Fecha y hora en que se envió el mensaje.
+        has_seen (BooleanField): Indica si el mensaje ha sido leído o visto por el destinatario.
+"""
 class Chat(models.Model):
     room_id = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='chats')  # Sala a la que pertenece el mensaje
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_msg')  # Usuario que envió el mensaje
