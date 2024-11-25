@@ -19,6 +19,17 @@ A social media web-application with Django.
 
 ----------------------------------
 
+## Installation Docker
+
+```bash
+    #decomment Uncomment.env to .env
+    $ docker-compose up -d --build
+    $ docker-compose exec web python manage.py migrate
+    $ docker-compose exec web python manage.py createsuperuser
+    $ docker-compose down
+```
+----------------------------------
+
 <p align="center">
   <img src="https://github.com/StivenAtis/Django-Projects-2/blob/secondApp/imgs/InitialDiagram.png" />
 </p>
