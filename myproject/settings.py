@@ -116,12 +116,12 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 # Configuración de la base de datos.
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',   # Motor de base de datos, en este caso SQLite.
-        'NAME': BASE_DIR / 'db.sqlite3',          # Ruta de la base de datos en el directorio base del proyecto.
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',   # Motor de base de datos, en este caso SQLite.
+#         'NAME': BASE_DIR / 'db.sqlite3',          # Ruta de la base de datos en el directorio base del proyecto.
+#     }
+# }
 
 DATABASES = {
 	"default": {
