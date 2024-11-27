@@ -1,23 +1,60 @@
 # version: "3.9"
+# Especifica la versión del archivo de configuración de Docker Compose.
+
 services:
+# Define los servicios que se ejecutarán en contenedores.
+
   web:
+  # Configuración para el servicio "web", que corresponde a la aplicación Django.
+
     build: .
+    # Construye la imagen del servicio desde el contexto actual (directorio actual).
+
     command: python manage.py runserver 0.0.0.0:8000
+    # Comando que se ejecutará cuando el contenedor inicie. Aquí inicia el servidor de desarrollo de Django,
+    # escuchando en todas las interfaces (0.0.0.0) y en el puerto 8000.
+
     volumes:
       - .:/Django-projects-2
+      # Monta el directorio actual en el contenedor en la ruta "/Django-projects-2".
+      # Esto permite que los cambios locales se reflejen en el contenedor sin necesidad de reconstruirlo.
+
     ports:
       - "8001:8000"
+      # Mapea el puerto 8000 del contenedor al puerto 8001 en el host.
+
     depends_on:
       - db
+      # Establece que el servicio "web" depende del servicio "db".
+      # Asegura que el contenedor de la base de datos se inicie antes que el contenedor web.
+
   db:
     image: postgres:13
+    # Especifica la imagen de Docker para PostgreSQL en su versión 13.
+
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+      # Monta un volumen para persistir los datos de PostgreSQL, 
+      # incluso si el contenedor se elimina. Los datos se guardan en la ruta interna "/var/lib/postgresql/data/".
+
     environment:
       POSTGRES_USER: postgres         
+      # Variable de entorno que define el nombre del usuario de la base de datos.
+
       POSTGRES_PASSWORD: postgres 
+      # Variable de entorno que define la contraseña del usuario de la base de datos.
+
       POSTGRES_DB: dbDjango
+      # Variable de entorno que define el nombre de la base de datos predeterminada que se creará.
+
     ports:
       - "5433:5432"                  
+      # Mapea el puerto 5432 del contenedor (el puerto estándar de PostgreSQL) al puerto 5433 en el host.
+      # Permite conectarse a la base de datos desde el host usando localhost:5433.
+
 volumes:
+# Define los volúmenes utilizados por los servicios.
+
   postgres_data:
+  # Crea un volumen persistente llamado "postgres_data".
+  # Este volumen se utiliza para almacenar los datos de la base de datos PostgreSQL.
